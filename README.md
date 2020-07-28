@@ -23,7 +23,7 @@ Path to an icon.sys file with extra information to be embedded as an "extras" fi
 ## Support
  - Textures
  - Animations
- - Embedding icon.sys metadata``
+ - Embedding icon.sys metadata
 
 ## Todo
 - Draco compression, maybe?
