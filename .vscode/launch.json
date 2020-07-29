@@ -15,6 +15,14 @@
 			],
 			"console": "internalConsole",
 			"internalConsoleOptions": "neverOpen"
+		},
+		{
+			"name": "Launch GUI",
+			"type": "python",
+			"request": "launch",
+			"program": "${workspaceFolder}/gui.py",
+			"console": "internalConsole",
+			"internalConsoleOptions": "neverOpen"
 		}
 	]
 }
