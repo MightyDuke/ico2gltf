@@ -303,10 +303,6 @@ def main():
 
 	args = parser.parse_args()
 
-	if args.version:
-		print(f"ico2gltf v{VERSION}")
-		return
-
 	if args.output is None:
 		args.output = PurePath(args.input).with_suffix(".glb").as_posix()
 	
