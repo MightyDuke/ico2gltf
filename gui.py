@@ -34,7 +34,7 @@ def main():
 
             metadata = None
 
-            window["message"].text_color = "red"
+            window["message"].update(text_color="red")
             window["message"].update("")
 
             if not input_path.is_file() or not input_path.exists():
@@ -58,8 +58,8 @@ def main():
                 window["message"].update("An error has occured")
                 continue
 
-            window["message"].text_color = "green"
             window["message"].update("File converted successfuly")
+            window["message"].update(text_color="green")
 
     window.close()
 
