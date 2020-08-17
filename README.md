@@ -24,8 +24,3 @@ Path to an icon.sys file with extra information to be embedded as an "extras" fi
  - Textures
  - Animations
  - Embedding icon.sys metadata
-
-## Todo
-- Draco compression, maybe?
-- GUI
-- Standalone Windows executable
