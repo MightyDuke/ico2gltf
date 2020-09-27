@@ -312,6 +312,8 @@ def main():
 		help="Do not print any icon info."
 	)
 
+	parser.add_argument("-v", "--version", action="version", version=f"{VERSION}")
+
 	args = parser.parse_args()
 
 	if args.output is None:
