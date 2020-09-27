@@ -14,12 +14,20 @@ from gltflib import (
 	Interpolation, Material, PBRMetallicRoughness, TextureInfo, Channel
 )
 
-VERSION = "0.1"
+VERSION = "0.2"
 
 def convert_color(color):
 	return ((8 * (color >> 10)) & 0xFF, (8 * ((color >> 5) & 0x1F)) & 0xFF, (8 * (color & 0x1F)) & 0xFF)
 
-def decompress_texture_data(size, data):
+def convert_uncompressed_texture_data(data):
+	result = bytearray()
+
+	for i in range(128 * 128):
+		result.extend(convert_color(data[i]))
+
+	return bytes(reversed(result))
+
+def convert_compressed_texture_data(size, data):
 	offset = 0
 	result = bytearray()
 
@@ -108,10 +116,13 @@ def export_gltf(icon, filename, metadata=None):
 
 	# Generate texture
 
-	image = PILImage.frombytes("RGB", (128, 128), decompress_texture_data(icon.texture.size, icon.texture.data))
+	if isinstance(icon.texture, Ps2ico.CompressedTexture):
+		image_data = convert_compressed_texture_data(icon.texture.size, icon.texture.data)
+	elif isinstance(icon.texture, Ps2ico.UncompressedTexture):
+		image_data = convert_uncompressed_texture_data(icon.texture.data)
 
 	with BytesIO() as png:
-		image.save(png, "png")
+		PILImage.frombytes("RGB", (128, 128), image_data).save(png, "png")
 		texture_data = png.getvalue()
 
 	# Basic glTF info
@@ -321,7 +332,6 @@ def main():
 		print(f"Animation shapes:\t{icon.animation_shapes}")
 		print(f"Frame count:\t\t{icon.frame_count}")
 		print(f"Texture type:\t\t0x{icon.texture_type:02X}")
-		print(f"Texture size:\t\t{icon.texture.size} bytes")
 
 if __name__ == "__main__":
 	main()
